@@ -1,11 +1,13 @@
-
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import useQuiosco from "../hooks/useQuiosco";
 import { formatearDinero } from "../helpers";
 
 const ModalProducto = () => {
+  // CAMBIA EL ESTADO DEL MODAL
   const { producto, handleChangeModal} = useQuiosco();
-
+  // BOTON CANTIDAD 
+  const [cantidad, setCantidad] = useState(1);
 
   return (
     <div className="md:flex gap-10">
@@ -43,9 +45,14 @@ const ModalProducto = () => {
         </p>
 
         <div className="flex gap-4 mt-5">
+          {/* BOTON -  */}
           <button
             type="button"
-            
+            onClick={() => {
+              // SI LA CANTIDAD ES < 1 RETORNA 
+              if (cantidad <= 1) return;
+              setCantidad(cantidad - 1);
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,12 +69,16 @@ const ModalProducto = () => {
               />
             </svg>
           </button>
-
-         
-
+          {/* CANTIDAD  */}
+          <p className="text-3xl">{cantidad}</p>
+          {/* BOTON + */}
           <button
             type="button"
-          
+            onClick={() => {
+              // NO SE PUEDE PEDIR MAS DE 5 
+              if (cantidad >= 5) return;
+              setCantidad(cantidad + 1);
+            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
