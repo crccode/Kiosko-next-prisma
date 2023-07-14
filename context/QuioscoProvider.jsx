@@ -29,7 +29,12 @@ const QuioscoProvider = ({children}) => {
         // PERO COMO ES ARRAYMETHOD DEVOLVEMOS LA POSICION 1 
         setCategoriaActual(categoria[0])
     }
+    // CARGANDO CATEGORIA POR DEFECTO
+    useEffect(() => {
+        setCategoriaActual(categorias[0])
+    }, [categorias])
 
+    
     return(
         <QuioscoContext.Provider
             value={{
