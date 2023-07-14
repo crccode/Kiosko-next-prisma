@@ -13,6 +13,9 @@ const QuioscoProvider = ({children}) => {
     const [producto, setProducto ] = useState({})
     // 4 CREAMOS UN MODAL 
     const [modal, setModal] = useState(false)
+    // 5 PEDIDOS PODEMOS AGREGAR MULTIPLES ELEMENTOS
+    const [pedido, setPedido] = useState([])
+
 
     // 1. FUNCION QUE OBTINE DATOS DE LA API
     const obtenerCategorias = async () => {
@@ -47,6 +50,27 @@ const QuioscoProvider = ({children}) => {
     const handleChangeModal = () => {
         setModal(!modal)
     }
+
+    // 5 AGREGAR O ACTUALIZAR PEDIDO
+    // ({categoriaId, ...producto}) SACA categoriaId Y CREAR UN NUEVO ARRAY
+    const handleAgregarPedido = ({categoriaId, ...producto}) => {
+        // SI EL PRODUCTO ESTA ENB EL STATE LO ACTUALIZAMOS
+        // some NOS RETORNA TRUE O FALSE SI UN ELEMENTO CUMPLE CON LA CONDICION
+        if(pedido.some(productoState => productoState.id === producto.id)) {
+           // Actualizar la cantidad
+           const pedidoActualizado = pedido.map(productoState => productoState.id === producto.id ? producto : productoState)
+           setPedido(pedidoActualizado)
+
+         
+        } else {
+            setPedido([...pedido, producto])
+       
+        }
+
+        setModal(false)
+        
+    }
+
     return(
         <QuioscoContext.Provider
             value={{
@@ -56,7 +80,9 @@ const QuioscoProvider = ({children}) => {
                 producto,
                 handleSetProducto,
                 modal,
-                handleChangeModal
+                handleChangeModal,
+                handleAgregarPedido,
+                pedido
             }}
         >
             {children}

@@ -5,10 +5,21 @@ import { formatearDinero } from "../helpers";
 
 const ModalProducto = () => {
   // CAMBIA EL ESTADO DEL MODAL
-  const { producto, handleChangeModal} = useQuiosco();
+  const { producto, handleChangeModal, handleAgregarPedido, pedido} = useQuiosco();
   // BOTON CANTIDAD 
   const [cantidad, setCantidad] = useState(1);
-
+  // VERIFICANDO SI UN PRODUCTO YA EXISTE 
+  const [edicion, setEdicion] = useState(false);
+  useEffect(() => {
+    if (pedido.some((pedidoState) => pedidoState.id === producto.id)) {
+      // MOSTRAMOS EN LA INTERFAZ EL OBJETO
+      const productoEdicion = pedido.find(
+        (pedidoState) => pedidoState.id === producto.id
+      );
+      setEdicion(true);
+      setCantidad(productoEdicion.cantidad);
+    }
+  }, [producto, pedido]);
   return (
     <div className="md:flex gap-10">
       <div className="md:w-1/3">
@@ -100,8 +111,10 @@ const ModalProducto = () => {
         <button
           type="button"
           className="bg-indigo-600 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
-       
+          // LE PASAMOS UN OBJETO AL PROVIDER
+          onClick={() => handleAgregarPedido({ ...producto, cantidad })}
         >
+          {edicion ? "Guardar Cambios" : "Añadir al Pedido"}
         </button>
       </div>
     </div>
