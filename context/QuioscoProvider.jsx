@@ -9,6 +9,10 @@ const QuioscoProvider = ({children}) => {
     const [categorias, setCategorias] = useState([]);
     // 2. CATEGORIA ACTUAL 
     const [categoriaActual, setCategoriaActual] = useState({})
+    // 3. PRODUCTO SELECCIONADO
+    const [producto, setProducto ] = useState({})
+    // 4 CREAMOS UN MODAL 
+    const [modal, setModal] = useState(false)
 
     // 1. FUNCION QUE OBTINE DATOS DE LA API
     const obtenerCategorias = async () => {
@@ -34,13 +38,25 @@ const QuioscoProvider = ({children}) => {
         setCategoriaActual(categorias[0])
     }, [categorias])
 
-    
+    // 3. FUNCION PRODUCTO SELECCIONADO 
+    const handleSetProducto = producto => {
+        setProducto(producto)
+    }
+
+    // 4. MODAL
+    const handleChangeModal = () => {
+        setModal(!modal)
+    }
     return(
         <QuioscoContext.Provider
             value={{
                 categorias,
                 categoriaActual,
-                handleClickCategoria
+                handleClickCategoria,
+                producto,
+                handleSetProducto,
+                modal,
+                handleChangeModal
             }}
         >
             {children}
