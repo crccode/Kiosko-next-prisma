@@ -107,8 +107,25 @@ const QuioscoProvider = ({children}) => {
     // 10 INTERACCION CON LA BD
     const colocarOrden = async (e) => {
         e.preventDefault();
+        // TRY usamos esto por que puede que falle la conexion
+        try {
+            await axios.post('/api/ordenes', {pedido, nombre, total, fecha: Date.now().toString()})
 
-        
+            // Resetear la app
+            setCategoriaActual(categorias[0])
+            setPedido([])
+            setNombre('')
+            setTotal(0)
+            // MENSAJE DE CONFIRMACION DEL USUARIO
+            toast.success('Pedido Realizado Correctamente')
+            // DESPUES DE 3 SEGUNDO LO LLEVAMOS A LA PAGINA DE INICIO
+            setTimeout(() => {
+                router.push('/')
+            }, 3000)
+
+        } catch (error) {
+            console.log(error)
+        }
 
     };
 
