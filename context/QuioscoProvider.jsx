@@ -2,11 +2,14 @@ import { useState, useEffect, createContext } from 'react'
 import axios from 'axios'
 
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 const QuioscoContext = createContext()
 
 
 const QuioscoProvider = ({children}) => {
+    // MEJORA SIEMPRE MUESTRA EL MENMU 
+    const router = useRouter()
     // 1. LISTA DE LAS CATEGORIAS
     const [categorias, setCategorias] = useState([]);
     // 2. CATEGORIA ACTUAL 
@@ -37,6 +40,8 @@ const QuioscoProvider = ({children}) => {
         // SI CUMPLE LA CONDICION DEVOLVEMOS AL OBJETO
         // PERO COMO ES ARRAYMETHOD DEVOLVEMOS LA POSICION 1 
         setCategoriaActual(categoria[0])
+        // CUANDO SELECCIONAS UN ELEMENTO DEL ASIDE TE LLEVA A LA RUTA MAIN
+        router.push('/')
     }
     // CARGANDO CATEGORIA POR DEFECTO
     useEffect(() => {
