@@ -43,7 +43,7 @@ export default function Total() {
         <div className="mt-10">
           <p className="text-2xl">
             Total a pagar: {""}{" "}
-            {/* <span className="font-bold">{formatearDinero(total)}</span> */}
+            <span className="font-bold">{formatearDinero(total)}</span>
           </p>
         </div>
 

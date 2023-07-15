@@ -22,6 +22,8 @@ const QuioscoProvider = ({children}) => {
     const [pedido, setPedido] = useState([])
     // 9 NOMBRE EN EL FORMULARIO
     const [nombre, setNombre] = useState('')
+    // 11 TOTAL
+    const [total, setTotal] = useState(0)
 
     // 1. FUNCION QUE OBTINE DATOS DE LA API
     const obtenerCategorias = async () => {
@@ -94,6 +96,22 @@ const QuioscoProvider = ({children}) => {
         setPedido(pedidoActualizado)
     }
 
+    // 11 SE VA ACTUALIZAR CADA VEZ CAMBIE PEDIDIO 
+    useEffect(() => {
+        // reduce es un acumulador 
+        const nuevoTotal = pedido.reduce((total, producto) => (producto.precio * producto.cantidad ) + total, 0)
+
+        setTotal(nuevoTotal)
+    }, [pedido])
+
+    // 10 INTERACCION CON LA BD
+    const colocarOrden = async (e) => {
+        e.preventDefault();
+
+        
+
+    };
+
     return(
         <QuioscoContext.Provider
             value={{
@@ -109,7 +127,9 @@ const QuioscoProvider = ({children}) => {
                 handleEditarCantidades,
                 handleEliminarProducto,
                 nombre,
-                setNombre
+                setNombre,
+                colocarOrden,
+                total
             }}
         >
             {children}
