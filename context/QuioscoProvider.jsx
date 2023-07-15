@@ -20,7 +20,8 @@ const QuioscoProvider = ({children}) => {
     const [modal, setModal] = useState(false)
     // 5 PEDIDOS PODEMOS AGREGAR MULTIPLES ELEMENTOS
     const [pedido, setPedido] = useState([])
-
+    // 9 NOMBRE EN EL FORMULARIO
+    const [nombre, setNombre] = useState('')
 
     // 1. FUNCION QUE OBTINE DATOS DE LA API
     const obtenerCategorias = async () => {
@@ -106,7 +107,9 @@ const QuioscoProvider = ({children}) => {
                 handleAgregarPedido,
                 pedido,
                 handleEditarCantidades,
-                handleEliminarProducto
+                handleEliminarProducto,
+                nombre,
+                setNombre
             }}
         >
             {children}
