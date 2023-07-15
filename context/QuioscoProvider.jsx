@@ -73,6 +73,21 @@ const QuioscoProvider = ({children}) => {
         
     }
 
+    // 6 EDITAR LAS CATIDADES DESDE EL COMPONENTE DE RESUMEN 
+    const handleEditarCantidades = id => {
+        const productoActualizar = pedido.filter( producto => producto.id === id)
+        // SOLO TE DEVUELVE UN ELEMENTO
+        setProducto(productoActualizar[0])
+        setModal(!modal)
+    }
+
+    // 7 ELIMINAR PRODUCTO
+    const handleEliminarProducto = id => {
+        const pedidoActualizado = pedido.filter( producto => producto.id !== id)
+        // DEVULVE UNA LISTA DE LOS PRODUCTO QUE NO TENGAN EL ID
+        setPedido(pedidoActualizado)
+    }
+
     return(
         <QuioscoContext.Provider
             value={{
@@ -84,7 +99,9 @@ const QuioscoProvider = ({children}) => {
                 modal,
                 handleChangeModal,
                 handleAgregarPedido,
-                pedido
+                pedido,
+                handleEditarCantidades,
+                handleEliminarProducto
             }}
         >
             {children}
