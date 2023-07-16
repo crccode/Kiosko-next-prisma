@@ -7,7 +7,8 @@ export default function Admin() {
     const fetcher = () => axios('/api/ordenes').then(datos => datos.data)
     // ESTO DATOS LO RETORNA EL HOOKS POR DEFECTO
     // data SON LOS DATOS UNA VEZ QUE HACE LA CONSULTA A LA API
-    const {data , error, isLoading} = useSWR('/api/ordenes', fetcher)
+    const {data , error, isLoading} = useSWR('/api/ordenes', fetcher, {refreshInterval:10})
+    // {refreshInterval:100} se actualiza ca 1 decima de segundo esta en al documentacion
     console.log(data)
     console.log(error)
     console.log(isLoading)
