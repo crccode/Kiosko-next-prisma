@@ -18,7 +18,7 @@ export default function Admin() {
             {data && data.length ? data.map(orden =>
                 <Orden
                     key= {orden.id}
-                    order= {orden}
+                    orden= {orden}
                 />
             ): <p>No hay ordenes</p>}
         </AdminLayout>
